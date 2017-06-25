@@ -1,6 +1,6 @@
 var Num = function(x,y,k) {
 	this.radius = 60;
-	this.color = 'yellow';
+	this.color = '#F2F8EA';
 	this.key = k;
 	this.done = false;
 
@@ -14,7 +14,7 @@ var Num = function(x,y,k) {
 	this.clicked = function(mX, mY, val) {
 		if(Math.abs(x-mX) <= this.radius/2 && Math.abs(mY-y) <= this.radius/2) {
 			if(val == this.key) {
-				this.color = 'red';
+				this.color = '#D1D6A9';
 				counter++;
 				if(val == 1) {
 					startTime =  new Date();
@@ -23,10 +23,7 @@ var Num = function(x,y,k) {
 				if(val == 25) {
 					endTime =  new Date();
 					var timeDiff = endTime - startTime;
-					counter = 1;
-					timeDiff = timeDiff / 1000;
-					showTime.html(Math.round(timeDiff % 60) + " sec")
-					generateCircles();
+					gameover(timeDiff);
 				}
 			}
 		}
