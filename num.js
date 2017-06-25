@@ -16,9 +16,17 @@ var Num = function(x,y,k) {
 			if(val == this.key) {
 				this.color = 'red';
 				counter++;
+				if(val == 1) {
+					startTime =  new Date();
+					showTime.html("");
+				}
 				if(val == 25) {
 					generateCircles();
 					counter = 1;
+					endTime =  new Date();
+					var timeDiff = endTime - startTime;
+					timeDiff = timeDiff / 1000;
+					showTime.html(Math.round(timeDiff % 60) + " sec")
 				}
 			}
 		}
