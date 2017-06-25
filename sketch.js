@@ -23,7 +23,7 @@ function draw() {
 	}
 }
 
-function mouseClicked() {
+function touchStarted() {
 	for (var i = 0; i < 25; i++) {
 		num[i].clicked(mouseX, mouseY, counter);
 	}

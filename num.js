@@ -21,12 +21,12 @@ var Num = function(x,y,k) {
 					showTime.html("");
 				}
 				if(val == 25) {
-					generateCircles();
-					counter = 1;
 					endTime =  new Date();
 					var timeDiff = endTime - startTime;
+					counter = 1;
 					timeDiff = timeDiff / 1000;
 					showTime.html(Math.round(timeDiff % 60) + " sec")
+					generateCircles();
 				}
 			}
 		}
