@@ -1,5 +1,5 @@
 var Num = function(x,y,k) {
-	this.radius = 40;
+	this.radius = 60;
 	this.color = 'yellow';
 	this.key = k;
 	this.done = false;

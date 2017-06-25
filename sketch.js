@@ -20,13 +20,14 @@ function generateCircles() {
 	count = 0;
 	for (var i = 0; i < 5; i++) {
 		for (var j = 0; j < 5; j++) {
-			num.push(new Num(i*50+50, j*50+50, numbers[count++]));
+			num.push(new Num(i*60+60, j*60+60, numbers[count++]));
 		}
 	}
 }
 
 function setup() {
 	createCanvas(500, 500);
+	textSize(20);
 	textAlign(CENTER);
 	generateCircles();
 }
