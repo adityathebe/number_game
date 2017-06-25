@@ -62,7 +62,7 @@ function draw() {
 var gameover = function(timeDiff) {
 	counter = 1;
 	timeDiff = timeDiff / 1000;
-	showTime.html(Math.round(timeDiff % 60) + " sec")
+	showTime.html(Math.round(timeDiff) + " sec")
 	generateCircles();
 	var data = {
 		name : playerName,
