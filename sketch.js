@@ -15,7 +15,7 @@ function setup() {
 	showTime = createElement('h4');
 	showTime.style("color", "white");
 	showTime.style("font-size", "30px");
-	showTime.position(width - 100, height - 100);
+	showTime.position(width/2, height/2 - 100);
 	openingScreen();	
 
 	// Firebase
@@ -29,7 +29,7 @@ function setup() {
   	};
 
 	firebase.initializeApp(config);
-	database = firebase.database();
+	database = firebase.database();	
 	ref = database.ref('scores')
 	ref.on('value', gotData, errData);
 }
@@ -56,9 +56,10 @@ function gotData(data) {
 
 	// Displaying data
 	for (var i = 0; i < 10; i++) {
-		var li = createElement("li", player_data[i][0] + " " + player_data[i][1]);
-		li.class('playerData')
+		var li = createElement("li", player_data[i][0] + " -- " + player_data[i][1].toFixed(2));
+		li.class('playerData');
 		li.parent("player-list");
+		li.style("font-size","24px")
 	}
 }
 
@@ -79,7 +80,7 @@ function draw() {
 var gameover = function(timeDiff) {
 	counter = 1;
 	timeDiff = timeDiff / 1000;
-	showTime.html(Math.round(timeDiff) + " sec")
+	showTime.html(timeDiff.toFixed(2) + " sec")
 	generateCircles();
 	var data = {
 		name : playerName,
