@@ -1,4 +1,3 @@
-
 var genRandInt = function() {
 	var temp = Math.floor(Math.random() * 25 + 1);
 	if (numbers.indexOf(temp) === -1) {

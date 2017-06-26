@@ -1,11 +1,8 @@
-var num = [];
-var numbers = [];
-var count = 0;
-var counter = 1;
-var endTime, startTime;
-var showTime;
-var ref, playerName = "", inputfield, button;
-var database;
+var num = [], numbers;
+var count = 0, counter = 1;
+var endTime, startTime, showTime;
+var ref, database;
+var playerName = "", inputfield, button;
 
 function setup() {
 	createCanvas(500, 500);
@@ -28,6 +25,15 @@ function setup() {
 	database = firebase.database();	
 	ref = database.ref('scores')
 	ref.on('value', gotData, errData);
+}
+
+function draw() {
+	background(51);
+	if(playerName != "") {
+		for (var i = 0; i < 25; i++) {
+			num[i].show();
+		}		
+	}
 }
 
 function gotData(data) {
@@ -64,16 +70,7 @@ function errData(err) {
 	console.log(err)
 }
 
-function draw() {
-	background(51);
-	if(playerName != "") {
-		for (var i = 0; i < 25; i++) {
-			num[i].show();
-		}		
-	}
-}
-
-var gameover = function(timeDiff) {
+function gameover(timeDiff) {
 	counter = 1;
 	timeDiff = timeDiff / 1000;
 	generateCircles();
@@ -101,10 +98,12 @@ var openingScreen = function() {
 	inputfield.style("height","30px");
 	inputfield.style("text-align","center");
 	inputfield.style("font-size","20px");
+	inputfield.attribute("placeholder","Enter your Name");
 	/* === Button === */
-	button = createButton('submit');
+	button = createButton('Submit');
 	button.mousePressed(setName);
 	button.style("height","36px");
+	button.style("font-size","20px");
 	button.position(width/2 + 175, height/2);
 	/* === Time Field === */
 	showTime = createElement('h4');
@@ -120,6 +119,6 @@ function touchStarted() {
 }
 
 function keyPressed() {
-  if (keyCode === ENTER)
-  	setName();
+	if (keyCode === ENTER)
+		setName();
 }
