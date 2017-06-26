@@ -35,13 +35,30 @@ function setup() {
 }
 
 function gotData(data) {
+	// Store Data
 	var scores = data.val();
 	var keys = Object.keys(scores)
+
+	// Clear the list first
+	var playersdata = selectAll('.playerData');
+	for (var i = 0; i < playersdata.length; i++) {
+		playersdata[i].remove();
+	}
+
+	// Sorting the data
+	var player_data = []
 	for (var i = 0; i < keys.length; i++) {
-		var k = keys[i];
-		var name = scores[k].name;
-		var time = scores[k].time;
-		console.log(name, time);
+		player_data.push([scores[keys[i]].name, scores[keys[i]].time])
+	}
+	player_data.sort(function(a, b) {
+	    return a[1] - b[1];
+	});
+
+	// Displaying data
+	for (var i = 0; i < 10; i++) {
+		var li = createElement("li", player_data[i][0] + " " + player_data[i][1]);
+		li.class('playerData')
+		li.parent("player-list");
 	}
 }
 
