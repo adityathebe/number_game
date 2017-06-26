@@ -20,7 +20,7 @@ var Num = function(x,y,k) {
 					startTime =  new Date();
 					showTime.html("");
 				}
-				if(val == 3) {
+				if(val == 25) {
 					endTime =  new Date();
 					var timeDiff = endTime - startTime;
 					gameover(timeDiff);
