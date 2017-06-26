@@ -12,10 +12,6 @@ function setup() {
 	textSize(20);
 	textAlign(CENTER);
 	generateCircles();
-	showTime = createElement('h4');
-	showTime.style("color", "white");
-	showTime.style("font-size", "30px");
-	showTime.position(width/2, height/2 - 100);
 	openingScreen();	
 
 	// Firebase
@@ -80,7 +76,6 @@ function draw() {
 var gameover = function(timeDiff) {
 	counter = 1;
 	timeDiff = timeDiff / 1000;
-	showTime.html(timeDiff.toFixed(2) + " sec")
 	generateCircles();
 	var data = {
 		name : playerName,
@@ -89,24 +84,33 @@ var gameover = function(timeDiff) {
 	ref.push(data);
 	playerName = "";
 	openingScreen();
+	showTime.html(timeDiff.toFixed(2) + " sec");
 }
 
 var setName = function() {
 	playerName = inputfield.value();
 	inputfield.remove();
 	button.remove();
+	showTime.remove();
 }
 
 var openingScreen = function() {
+	/* === Input Field === */
 	inputfield = createInput();
-	button = createButton('submit');
-	button.mousePressed(setName);
 	inputfield.position(width/3, height/2);
 	inputfield.style("height","30px");
 	inputfield.style("text-align","center");
 	inputfield.style("font-size","20px");
+	/* === Button === */
+	button = createButton('submit');
+	button.mousePressed(setName);
 	button.style("height","36px");
 	button.position(width/2 + 175, height/2);
+	/* === Time Field === */
+	showTime = createElement('h4');
+	showTime.style("color", "white");
+	showTime.style("font-size", "30px");
+	showTime.position(width/2, height/2 - 100);
 }
 
 function touchStarted() {

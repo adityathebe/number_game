@@ -14,7 +14,7 @@ var Num = function(x,y,k) {
 	this.clicked = function(mX, mY, val) {
 		if(Math.abs(x-mX) <= this.radius/2 && Math.abs(mY-y) <= this.radius/2) {
 			if(val == this.key) {
-				this.color = '#D1D6A9';
+				this.color = '#71BA51';
 				counter++;
 				if(val == 1) {
 					startTime =  new Date();
