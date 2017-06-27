@@ -2,29 +2,15 @@ var num = [], numbers;
 var count = 0, counter = 1;
 var endTime, startTime, showTime;
 var ref, database;
-var playerName = "", inputfield, button;
+var playerName = "", inputfield, button, showHint;
 
 function setup() {
-	createCanvas(500, 500);
+	var canvas = createCanvas(500, 500);
+	canvas.parent("canvas_div");
 	textSize(20);
 	textAlign(CENTER);
 	generateCircles();
 	openingScreen();	
-
-	// Firebase
-	var config = {
-		apiKey: "AIzaSyC1wEKxiHxT45YtdcZ-ru0Sl8muQWveLTk",
-		authDomain: "numbergame-4a3a9.firebaseapp.com",
-		databaseURL: "https://numbergame-4a3a9.firebaseio.com",
-		projectId: "numbergame-4a3a9",
-		storageBucket: "",
-		messagingSenderId: "1010469096603"
-  	};
-
-	firebase.initializeApp(config);
-	database = firebase.database();	
-	ref = database.ref('scores')
-	ref.on('value', gotData, errData);
 }
 
 function draw() {
@@ -36,51 +22,18 @@ function draw() {
 	}
 }
 
-function gotData(data) {
-	// Store Data
-	var scores = data.val();
-	var keys = Object.keys(scores)
-
-	// Clear the list first
-	var playersdata = selectAll('.playerData');
-	for (var i = 0; i < playersdata.length; i++) {
-		playersdata[i].remove();
-	}
-
-	// Sorting the data
-	var player_data = []
-	for (var i = 0; i < keys.length; i++) {
-		player_data.push([scores[keys[i]].name, scores[keys[i]].time])
-	}
-	player_data.sort(function(a, b) {
-	    return a[1] - b[1];
-	});
-
-	// Displaying data
-	for (var i = 0; i < 10; i++) {
-		var li = createElement("li", player_data[i][0] + " -- " + player_data[i][1].toFixed(2));
-		li.class('playerData');
-		li.parent("player-list");
-		li.style("font-size","24px")
-	}
-}
-
-function errData(err) {
-	console.log("Error!");
-	console.log(err)
-}
-
 function gameover(timeDiff) {
 	counter = 1;
 	timeDiff = timeDiff / 1000;
 	generateCircles();
+	openingScreen();
 	var data = {
 		name : playerName,
 		time : timeDiff
 	}
 	ref.push(data);
 	playerName = "";
-	openingScreen();
+	showHint.remove();
 	showTime.html(timeDiff.toFixed(2) + " sec");
 }
 
@@ -89,6 +42,12 @@ var setName = function() {
 	inputfield.remove();
 	button.remove();
 	showTime.remove();
+	/* == Showhint == */
+	showHint = createElement("H3");
+	showHint.style("font-size","30px");
+	showHint.style("color","white");
+	showHint.position(width/2, height/2 + 100);
+	showHint.html("Press 1");
 }
 
 var openingScreen = function() {
@@ -102,23 +61,21 @@ var openingScreen = function() {
 	/* === Button === */
 	button = createButton('Submit');
 	button.mousePressed(setName);
-	button.style("height","36px");
-	button.style("font-size","20px");
 	button.position(width/2 + 175, height/2);
+	button.class("pure-button pure-button-primary");
 	/* === Time Field === */
-	showTime = createElement('h4');
+	showTime = createElement('h1');
 	showTime.style("color", "white");
-	showTime.style("font-size", "30px");
 	showTime.position(width/2, height/2 - 100);
 }
 
-function touchStarted() {
+function mousePressed() {
 	for (var i = 0; i < 25; i++) {
 		num[i].clicked(mouseX, mouseY, counter);
 	}
 }
 
-function keyPressed() {
+function keyPressed()  {
 	if (keyCode === ENTER)
 		setName();
 }
